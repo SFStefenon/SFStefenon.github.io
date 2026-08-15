@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Journal articles, conference papers, and books authored or co-authored by Stefano Frizzo Stefenon.">
+  <meta name="theme-color" content="#071a2f">
+  <title>Publications | Stefano Frizzo Stefenon</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --navy: #071a2f;
+      --navy-soft: #0d2944;
+      --ink: #10243a;
+      --muted: #617082;
+      --teal: #31d6bd;
+      --paper: #f3f6f8;
+      --white: #fff;
+    }
+
+    body { background: var(--paper); color: var(--ink); }
+
+    .publications-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 10.5rem 0 5.5rem;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 88% 25%, rgba(49, 214, 189, .18), transparent 25rem),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    }
+
+    .publications-hero::after {
+      content: "";
+      position: absolute;
+      width: 22rem;
+      height: 22rem;
+      right: -7rem;
+      bottom: -13rem;
+      border: 1px solid rgba(49, 214, 189, .28);
+      border-radius: 50%;
+    }
+
+    .publications-hero .container { position: relative; z-index: 1; }
+    .publications-hero h1 { max-width: 760px; font-size: clamp(2.4rem, 5vw, 4.5rem); line-height: 1.02; letter-spacing: -.045em; }
+    .publications-hero h1 span { color: var(--teal); }
+    .publications-lead { max-width: 720px; color: rgba(255,255,255,.74); font-size: 1.1rem; line-height: 1.75; }
+    .publications-kicker { color: var(--teal); text-transform: uppercase; letter-spacing: .15em; font-size: .78rem; }
+
+    .publication-stats { border-bottom: 1px solid #dce4e9; background: var(--white); }
+    .publication-stat { padding: 1.6rem 1rem; border-right: 1px solid #e2e8ec; }
+    .publication-stat:last-child { border-right: 0; }
+    .publication-stat strong { display: block; color: var(--navy); font-size: 1.7rem; line-height: 1; }
+    .publication-stat span { display: block; margin-top: .4rem; color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+
+    .publications-content { padding: 4.5rem 0 6rem; }
+    .publication-tools { position: sticky; top: 92px; }
+    .publication-tools h2 { font-size: 1.35rem; letter-spacing: -.02em; }
+    .publication-search { border: 1px solid #d8e1e7; border-radius: 0; padding: .85rem 1rem; box-shadow: none !important; }
+    .publication-search:focus { border-color: var(--teal); }
+
+    .filter-button {
+      width: 100%;
+      padding: .68rem .85rem;
+      border: 0;
+      border-left: 3px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      transition: .2s ease;
+    }
+
+    .filter-button:hover,
+    .filter-button.active { border-left-color: var(--teal); background: var(--white); color: var(--navy); }
+    .year-select { border-radius: 0; border-color: #d8e1e7; padding: .72rem 2.25rem .72rem .85rem; }
+    .results-count { color: var(--muted); font-size: .9rem; }
+
+    .publication-card {
+      margin-bottom: 1rem;
+      padding: 1.55rem 1.7rem;
+      border: 1px solid #dde5ea;
+      border-left: 4px solid var(--teal);
+      background: var(--white);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .publication-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(7, 26, 47, .08); }
+    .publication-card[hidden] { display: none !important; }
+    .publication-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; margin-bottom: .75rem; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .publication-meta span + span::before { content: "·"; margin-right: .55rem; color: #a6b2bc; }
+    .publication-id { color: var(--navy) !important; font-weight: 700; }
+    .publication-citation { margin: 0; color: #34495e; line-height: 1.75; }
+    .publication-citation strong { color: var(--ink); }
+    .publication-citation em { color: var(--navy); }
+    .publication-citation a { color: #087f72; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+    .publication-citation a:hover { text-decoration: underline; }
+    .empty-state { padding: 4rem 1rem; border: 1px dashed #c8d3da; background: rgba(255,255,255,.6); text-align: center; color: var(--muted); }
+
+    .metrics-panel { margin-top: 4rem; padding: 2rem; background: var(--navy); color: var(--white); }
+    .metrics-panel h2 { font-size: 1.6rem; }
+    .metrics-table { --bs-table-bg: transparent; --bs-table-color: rgba(255,255,255,.78); margin-bottom: 0; }
+    .metrics-table th { color: var(--teal); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .metrics-table td, .metrics-table th { padding: .85rem .45rem; border-color: rgba(255,255,255,.12); }
+    .metrics-table a { color: var(--white); text-decoration: none; }
+    .metrics-table a:hover { color: var(--teal); }
+    .metrics-note { color: rgba(255,255,255,.55); font-size: .78rem; }
+
+    @media (max-width: 991.98px) {
+      .publication-tools { position: static; }
+      .publications-content { padding-top: 3rem; }
+    }
+
+    @media (max-width: 575.98px) {
+      .publications-hero { padding: 8.5rem 0 4rem; }
+      .publication-stat { border-bottom: 1px solid #e2e8ec; }
+      .publication-card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top cv-nav" aria-label="Primary navigation">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html#top" aria-label="Stefano Frizzo Stefenon, home">
+        <span class="brand-mark">SS</span><span>Stefano Frizzo Stefenon</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cvNavigation" aria-controls="cvNavigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="cvNavigation">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#research">Research</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="publications.html">Publications</a></li>
+          <li class="nav-item"><a class="btn btn-accent btn-sm ms-lg-2" href="https://github.com/SFStefenon" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="publications-hero">
+      <div class="container">
+        <p class="publications-kicker mb-3">Academic output</p>
+        <h1 class="fw-semibold mb-4">Research published across <span>engineering and AI.</span></h1>
+        <p class="publications-lead mb-4">Journal articles, conference contributions, and books spanning energy forecasting, intelligent monitoring, computer vision, and electrical power systems.</p>
+        <a class="btn btn-accent btn-lg" href="#publication-list">Explore publications</a>
+      </div>
+    </section>
+
+    <section class="publication-stats" aria-label="Publication totals">
+      <div class="container">
+        <div class="row g-0 text-center">
+          <div class="col-6 col-lg-3 publication-stat"><strong>107</strong><span>Total works</span></div>
+          <div class="col-6 col-lg-3 publication-stat"><strong>92</strong><span>Journal articles</span></div>
+          <div class="col-6 col-lg-3 publication-stat"><strong>11</strong><span>Conference papers</span></div>
+          <div class="col-6 col-lg-3 publication-stat"><strong>4</strong><span>Books</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="publications-content" id="publication-list">
+      <div class="container">
+        <div class="row g-5">
+          <aside class="col-lg-3" aria-label="Publication filters">
+            <div class="publication-tools">
+              <p class="section-kicker">Find a work</p>
+              <h2 class="mb-3">Search and filter</h2>
+              <label class="visually-hidden" for="publicationSearch">Search publications</label>
+              <input class="form-control publication-search mb-3" id="publicationSearch" type="search" placeholder="Title, author, journal…">
+              <div class="d-grid gap-1 mb-4" role="group" aria-label="Filter by publication type">
+                <button class="filter-button active" type="button" data-filter="all">All publications</button>
+                <button class="filter-button" type="button" data-filter="journal">Journal articles</button>
+                <button class="filter-button" type="button" data-filter="conference">Conference papers</button>
+                <button class="filter-button" type="button" data-filter="book">Books</button>
+              </div>
+              <label class="form-label small text-uppercase text-secondary" for="yearFilter">Publication year</label>
+              <select class="form-select year-select" id="yearFilter">
+                <option value="all">All years</option>
+              </select>
+            </div>
+          </aside>
+
+          <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-end gap-3 mb-3">
+              <div><p class="section-kicker mb-1">Complete list</p><h2 class="h3 mb-0">Publications</h2></div>
+              <p class="results-count mb-1" id="resultsCount" aria-live="polite"></p>
+            </div>
+            <div id="publicationsGrid">
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J91</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> Matos-Carvalho, J. P., Leithardt, V. R. Q., &amp; Yow, K. C. (2026). CNN-transformer-based model explained by SHAP and multi-head attention weights for time series forecasting. <em>Scientific Reports</em> (Spring. Nature), vol. preprint, 2026. Doi: <a href="https://doi.org/10.1038/s41598-026-63013-0" target="_blank" rel="noreferrer">10.1038/s41598-026-63013-0<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2027">
+            <div class="publication-meta">
+              <span class="publication-id">J90</span>
+              <span>Journal</span>
+              <span>2027</span>
+            </div>
+            <p class="publication-citation">Santos, A. H. R., Mariani, V. C., <strong>Stefenon, S. F.,</strong> Ribeiro, M. H. D. M., Freire, R. Z. Integrating pre-processing and generative adversarial networks into temporal fusion transformers for wind speed forecasting. <em>Electric Power Systems Research</em> (Elsevier), vol. <em>264</em>, p. 113838, 2027. Doi: <a href="https://doi.org/10.1016/j.epsr.2026.112754" target="_blank" rel="noreferrer">10.1016/j.epsr.2026.112754<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">JOURNAL</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.</strong>, Leithardt, V. R. Q., Santana, F. P., Yow, K. C. Feature-engineered ensemble learning methods for insulator fault detection based on ultrasound signals. <em>Egyptian Informatics Journal</em> (Elsevier), vol. 167, p. 113939, 2026. Doi: <a href="https://doi.org/10.1016/j.eij.2026.101038" target="_blank" rel="noreferrer">10.1016/j.eij.2026.101038<span aria-hidden="true"> ↗</span></a> <strong>(JCR IF = 4.2) </strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J89</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> Seman, L. O., Matos-Carvalho, J. P., Nied, A., Gonzalez, G. V., Yow, K. C. Optimized Harmonic-Multiscale Kolmogorov-Arnold Network denoised by EWT for hydroelectric dam useful volume forecast. <em>Energy</em> (Elsevier), vol. 356, p. 141214, 2026. <a href="https://doi.org/10.1016/j.energy.2026.141214" target="_blank" rel="noreferrer">10.1016/j.energy.2026.141214<span aria-hidden="true"> ↗</span></a> <strong>(JCR IF = 10.1) </strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J88</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.,</strong> Yow, K. C., dos Santos Coelho, L., Mariani, V. C. Multi-step short-term solar energy forecasting using Fourier-enhanced BiLSTM and neural additive models. <em>Renewable Energy</em> (Elsevier), vol. 257, p. 124738, 2026. Doi: <a href="https://doi.org/10.1016/j.renene.2025.124738" target="_blank" rel="noreferrer">10.1016/j.renene.2025.124738<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 9.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J87</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.,</strong> Yow, K. C., dos Santos Coelho, L., Mariani, V. C. Fourier-enhanced sequence-to-sequence latent graph neural networks for multi-node spatiotemporal forecasting in a hydroelectric reservoir. Engineering Applications of Artificial Intelligence (Elsevier), vol. 167, p. 113939, 2026. Doi: <a href="https://doi.org/10.1016/j.engappai.2026.113939" target="_blank" rel="noreferrer">10.1016/j.engappai.2026.113939<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 8.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J86</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., Buratto, W. G., Gonzalez, G. V., Leithardt, V. R. Q., Nied, A., <strong>Stefenon, S. F.</strong> Differentiable neural search architecture with zero-cost metrics for insulator fault prediction. <em>Results in Engineering</em> (Elsevier), vol. 29, p. 109716, 2026. Doi: <a href="https://doi.org/10.1016/j.rineng.2026.109716" target="_blank" rel="noreferrer">10.1016/j.rineng.2026.109716<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 9.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J85</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Carvalho, J. P. M., <strong>Stefenon, S. F.,</strong> Leithardt, V. R. Q., Seman, L. O., Yow, K. C., Santana, J. F. D. P. Input attention, squeeze and excitation, and spatial transformer of YOLO for fault detection using UAV. <em>Ain Shams Engineering Journal</em> (Elsevier), vol. <em>17, no.</em> 3, p. 104067, 2026. Doi: <a href="https://dx.doi.org/10.1016/j.asej.2026.104067" target="_blank" rel="noreferrer">10.1016/j.asej.2026.104067<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 6.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J84</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.</strong>, Matos-Carvalho, J. P., Nied, A., Yow, K. -C. End-to-end decomposition-aware neural architecture search with sparse expert transformers for thermal energy forecasting. <em>IEEE Access</em> (IEEE), vol. preprint, 2026. Doi: <a href="https://doi.org/10.1109/ACCESS.2026.3689436" target="_blank" rel="noreferrer">10.1109/ACCESS.2026.3689436<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J83</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Carvalho, J. P. M., <strong>Stefenon, S. F.,</strong> Ribeiro, M. H. D. M., Yow, K. C. Hybrid Kalman filter-Kolmogorov-Arnold network using local interpretable model-agnostic explanations for photovoltaic power forecasting. <em>SN Computer Science</em> (Spring. Nature), vol. <em>7, no.</em> 4, p. 319, 2026. Doi: <a href="https://dx.doi.org/10.1007/s42979-026-04823-x" target="_blank" rel="noreferrer">10.1007/s42979-026-04823-x<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J82</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Heidrich, M. Z., Reis, M. A. F., Yamaguchi, C. K., Seman, L. O., <strong>Stefenon, S. F.</strong> Patch-based transformer with mixture of experts and conformal inference for curtailment time series forecasting. <em>IEEE Access</em> (IEEE), vol. 14, pp. 64144-64160, 2026. Doi: <a href="https://doi.org/10.1109/ACCESS.2026.3686958" target="_blank" rel="noreferrer">10.1109/ACCESS.2026.3686958<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J81</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.,</strong> &amp; Matos-Carvalho, J. P. Decomposition-driven Mamba state space models with expert routing for wind curtailment forecasting. <em>Electric Power Systems Research</em>, vol. <em>260</em>, p. 113259, 2026. Doi: <a href="https://doi.org/10.1016/j.epsr.2026.113259" target="_blank" rel="noreferrer">10.1016/j.epsr.2026.113259<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J80</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Takara, L. D. A., De Souza, R. C. T., Mariani, V. C., dos Santos Coelho, L., <strong>Stefenon, S. F.</strong> Multi-scale convolutional Chebyshev Kolmogorov-Arnold networks using conformal prediction for photovoltaic power forecasting. <em>IEEE Access</em> (IEEE), vol. 14, pp. 81170-81194, 2026. Doi: <a href="https://doi.org/10.1109/ACCESS.2026.3694780" target="_blank" rel="noreferrer">10.1109/ACCESS.2026.3694780<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J79</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.,</strong> Yow, K. C. Sparse mixture of experts enhanced transformer architecture for short-term hydroelectric reservoir volume prediction. Electric Power Systems Research vol. 255, p. 112754, 2026. Doi: <a href="https://doi.org/10.1016/j.epsr.2026.112754" target="_blank" rel="noreferrer">10.1016/j.epsr.2026.112754<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J78</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> Yow, K. C. Graph attention network with mutual k-nearest neighbor strategy for predictive maintenance in nuclear power plants. <em>Technologies</em> (MDPI), vol. 14, n. 1, p. 26, 2026. Doi: <a href="https://doi.org/10.3390/technologies14010026" target="_blank" rel="noreferrer">10.3390/technologies14010026<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J77</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Stefenon, S. F., Yow, K. C. Stacked graph attention network hypertuned by Heteroscedastic and Evolutionary Bayesian Optimization for fault identification on nuclear power plants robust to sensor drift. <em>Scientific Reports</em> (Spring. Nature), vol. preprint, 2026. Doi: <a href="https://doi.org/10.1038/s41598-026-60045-4" target="_blank" rel="noreferrer">10.1038/s41598-026-60045-4<span aria-hidden="true"> ↗</span></a>.<strong>(JCR IF = 4.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J76</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Buratto, W. G., Gonzalez, G. V., Nied, A., Seman, L. O., Klaar, A. C. R., <strong>Stefenon, S. F.</strong> An autonomous large language model‐agent framework for transparent and local time series forecasting. Advanced Intelligent Discovery (Wiley), vol. preprint, 2026. Doi: <a href="https://doi.org/10.1002/aidi.202500236" target="_blank" rel="noreferrer">10.1002/aidi.202500236<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J75</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> El-Hag, A., Bagheri, M., Shaban, K., Kordi, B., Ghunem, R., Kornhuber, S. Machine Learning and Deep Learning-Based Condition Assessment of Outdoor Ceramic Insulators: A Comprehensive Review. <em>IEEE Transactions on Dielectrics and Electrical Insulation</em>. 2026. Doi: <a href="https://doi.org/10.1109/TDEI.2026.3693222" target="_blank" rel="noreferrer">10.1109/TDEI.2026.3693222<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">J74</span>
+              <span>Journal</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> Matos-Carvalho, J. P., Mariani, V. C., Coelho, L. S., Yow, K. C. Diffusion-augmented YOLO26-Swin cascaded framework with hybrid SHAP-CAM for autonomous power grid inspection. <em>Autonomous Intelligent Systems</em>, vol. 6, no. 1, p. 13, 2026. Doi: <a href="https://doi.org/10.1007/s43684-026-00135-2" target="_blank" rel="noreferrer">10.1007/s43684-026-00135-2<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J73</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S.F.</strong>, Cristoforetti, M., Cimatti, A. Automatic digitalization of railway interlocking systems engineering drawings based on hybrid machine learning methods. <em>Expert Systems with Applications</em> (Elsevier), vol. 281, p. 127532, 2025. Doi: <a href="https://doi.org/10.1016/j.eswa.2025.127532" target="_blank" rel="noreferrer">10.1016/j.eswa.2025.127532<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 9.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J72</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S.F.</strong>, Cristoforetti, M., Cimatti, A. Conditional diffusion to enhance performance of object detection in unbalanced data engineering drawings. <em>Neural Computing and Applications</em> (Spring. Nature), vol. 37, pp. 20335-20364, 2025. Doi: <a href="https://dx.doi.org/10.1007/s00521-025-11458-1" target="_blank" rel="noreferrer">10.1007/s00521-025-11458-1<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J71</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"> Seman, L. O., Aquino, L. S., Stefenon, S. F., Yow, K. C., Mariani, V. C., Coelho, L. S. (2025). Simultaneously anomaly detection and forecasting for predictive maintenance using a zero-cost differentiable architecture search-based network. <em>Computers &amp; Industrial Engineering</em> (Elsevier), vol. 208, p. 111412, 2025. Doi: <a href="https://doi.org/10.1016/j.cie.2025.111412" target="_blank" rel="noreferrer">10.1016/j.cie.2025.111412<span aria-hidden="true"> ↗</span></a>. (JCR IF = 6.5)</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J70</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S.F.</strong>, Yow, K. C. Adaptive filter-driven optimized attention-based CNN-LSTM for load forecasting in microgrids. <em>Results in Engineering</em> (Elsevier), vol. 28, p. 107470, 2025. Doi: <a href="https://doi.org/10.1016/j.rineng.2025.107470" target="_blank" rel="noreferrer">10.1016/j.rineng.2025.107470<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 9.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="Undated">
+            <div class="publication-meta">
+              <span class="publication-id">J69</span>
+              <span>Journal</span>
+              <span>Undated</span>
+            </div>
+            <p class="publication-citation"> Singh, G., Stefenon, S. F., Yow, K. C. The shallowest transparent and interpretable deep neural network for image recognition. <em>Scientific Reports</em> (Spring. Nature), vol. 15, no. 1, p. 13940. Doi: <a href="https://doi.org/10.1038/s41598-025-92945-2" target="_blank" rel="noreferrer">10.1038/s41598-025-92945-2<span aria-hidden="true"> ↗</span></a>. (JCR IF = 4.9)</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J68</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"> Aquino, L. S., Seman, L. O., Mariani, V. C., Coelho, L. D. S., Stefenon, S. F., Gonzalez, G. V. (2025). Spatiotemporal wind energy forecasting: A comprehensive survey and a deep equilibrium-based case study with StemGNN. <em>IEEE Access</em> (IEEE), vol. 13, pp. 131461-131482, 2025. Doi: <a href="https://doi.org/10.1109/ACCESS.2025.3586997" target="_blank" rel="noreferrer">10.1109/ACCESS.2025.3586997<span aria-hidden="true"> ↗</span></a>. (JCR IF = 3.4)</p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J67</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., Klaar, A. C. R., Ribeiro, M. H. D. M., <strong>Stefenon, S. F.</strong> (2025). Enhanced Random Vector Functional Link Networks With Bayesian-Based Hyperparameter Optimization for Wind Speed Forecasting. <em>IEEE Access</em> (IEEE), vol. <em>13</em>, pp. 208105-208122, 2025. Doi: <a href="https://doi.org/10.1109/ACCESS.2025.3640434" target="_blank" rel="noreferrer">10.1109/ACCESS.2025.3640434<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J66</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S.F.</strong>, Seman, L. O., Singh, G., Yow, K.-C., Enhanced insulator fault detection using optimized ensemble of deep learning models based on weighted boxes fusion. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 168, p. 110682, 2025. Doi: <a href="https://doi.org/10.1016/j.ijepes.2025.110682" target="_blank" rel="noreferrer">10.1016/j.ijepes.2025.110682<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J65</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.,</strong> Seman, L. O., Yamaguchi, C. K., Coelho, L. D. S., Mariani, V. C., Matos-Carvalho, J. P., Leithardt, V. R. Neural hierarchical interpolation time series (NHITS) for reservoir level multi-horizon forecasting in hydroelectric power plants. <em>IEEE Access</em> (IEEE), vol. 13, pp. 54853-54865, 2025. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2025.3554446" target="_blank" rel="noreferrer">10.1109/ACCESS.2025.3554446<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J64</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Muniz, R. N., <strong>Stefenon, S. F.</strong>, Buratto, W. G., Nied, A., Cardoso, R., Yamaguchi, C. K., Yow, K. C. Time series forecasting based on multi-criteria optimization for model and filter selection applied to hydroelectric power plants. Energy (Elsevier), vol. 337, p. 138688, 2025. Doi: <a href="https://doi.org/10.1016/j.energy.2025.138688" target="_blank" rel="noreferrer">10.1016/j.energy.2025.138688<span aria-hidden="true"> ↗</span></a><strong>. (JCR IF = 10.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J63</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Zuege, C. V., <strong>Stefenon, S.F.</strong>, Yamaguchi, C. K., Mariani, V. C., Gonzalez, G. V. Coelho, L. D. S. Wind speed forecasting approach using conformal prediction and feature importance selection. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 168, p. 110700, 2025. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2025.110700" target="_blank" rel="noreferrer">10.1016/j.ijepes.2025.110700<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">J62</span>
+              <span>Journal</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Guerra, R. D. T., Yamaguchi, C. K., <strong>Stefenon, S. F.</strong>, Coelho, L. D. S., &amp; Mariani, V. C. Deep learning approach for automatic heartbeat classification. <em>Sensors</em> (MDPI), vol. 25, no. 5, p. 1400, 2025. Doi: <a href="https://doi.org/10.3390/s25051400" target="_blank" rel="noreferrer">10.3390/s25051400<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J61</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Silva, E. C., Finardi, E. C., Coelho, L. S., et al. Hypertuned wavelet convolutional neural network with long short-term memory for time series forecasting in hydroelectric power plants. <em>Energy</em> (Elsevier), vol. 157, p. 109876, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.energy.2024.133918" target="_blank" rel="noreferrer">10.1016/j.energy.2024.133918<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 10.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J60</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., da Silva, L. S. A., Mariani, V. C., Coelho, L. S. Hypertuned temporal fusion transformer for multi-horizon time series forecasting of dam level in hydroelectric power plants. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 157, p. 109876, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2024.109876" target="_blank" rel="noreferrer">10.1016/j.ijepes.2024.109876<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J59</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Klaar, A. C. R., Ovejero, R. G., et al. Hypertuned-YOLO for interpretable distribution power grid fault location based on EigenCAM. <em>Ain Shams Engineering Journal</em> (Elsevier), vol. 15, n. 6, p. 102722, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.asej.2024.102722" target="_blank" rel="noreferrer">10.1016/j.asej.2024.102722<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 6.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J58</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Larcher, J.H.K., <strong>Stefenon, S.F.</strong>, Coelho, L. S., Mariani, V.C. Enhanced multi-step streamflow series forecasting using hybrid signal decomposition and optimized reservoir computing models. <em>Expert Systems with Applications</em> (Elsevier), vol. 255, p. 124856, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.eswa.2024.124856" target="_blank" rel="noreferrer">10.1016/j.eswa.2024.124856<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 9.4)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J57</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Moreno, S. R., Seman, L. O., <strong>Stefenon, S. F.</strong>, et al. Enhancing wind speed forecasting through synergy of machine learning, singular spectral analysis, and variational mode decomposition. <em>Energy</em> (Elsevier), vol. 292, p. 130493, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.energy.2024.130493" target="_blank" rel="noreferrer">10.1016/j.energy.2024.130493<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 10.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J56</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Silva, E. C., Finardi, E. C., <strong>Stefenon, S. F.</strong> Enhancing hydroelectric inflow prediction in the Brazilian power system: A comparative analysis of machine learning models and hyperparameter optimization for decision support. <em>Electric Power Systems Research</em> (Elsevier), vol. 230, p. 110275, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.epsr.2024.110275" target="_blank" rel="noreferrer">10.1016/j.epsr.2024.110275<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J55</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Yamasaki, M., Freire, R. Z., Seman, L. O., <strong>Stefenon, S. F.</strong>, Mariani, V. C., Coelho, L. S. Optimized hybrid ensemble learning approaches applied to very short-term load forecasting. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 155, part B, p. 109579, 2024. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2023.109579" target="_blank" rel="noreferrer">10.1016/j.ijepes.2023.109579<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J54</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Ribeiro, M.H.D.M., da Silva, R.G., Moreno, S.R., Canton, C., Larcher, J. H. K., <strong>Stefenon, S. F.</strong>, Mariani, V. C., Coelho, L. S. Variational mode decomposition and bagging extreme learning machine with multi-objective optimization for wind power forecasting. <em>Applied Intelligence</em> (Springer Nature), vol. 54, pp. 3119–3134, 2024. Doi: <a href="https://dx.doi.org/10.1007/s10489-024-05331-2" target="_blank" rel="noreferrer">10.1007/s10489-024-05331-2<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2024">
+            <div class="publication-meta">
+              <span class="publication-id">J53</span>
+              <span>Journal</span>
+              <span>2024</span>
+            </div>
+            <p class="publication-citation">Tuleski, B. L., Yamaguchi, C. K., <strong>Stefenon, S.F.</strong>, et al. Audio-Based Engine Fault Diagnosis with Wavelet, Markov Blanket, ROCKET, and Optimized Machine Learning Classifiers. <em>Sensors</em> (MDPI), vol. 24, no. 22, p. 7316, 2024. Doi: <a href="https://dx.doi.org/10.3390/s24227316" target="_blank" rel="noreferrer">10.3390/s24227316<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J52</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Aquino, L. S., Coelho, L. S. Wavelet-Seq2Seq-LSTM with attention for time series forecasting of level of dams in hydroelectric power plants. <em>Energy</em> (Elsevier), vol. 274, p. 127350, 2023. Doi: <a href="https://dx.doi.org/10.1016/j.energy.2023.127350" target="_blank" rel="noreferrer">10.1016/j.energy.2023.127350<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 10.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J51</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Singh, G., Souza, B. J., Freire, R. Z., Yow, K.-C., Optimized hybrid YOLOu- Quasi-ProtoPNet for insulators classification. <em>IET Generation, Transmission &amp; Distribution</em> (Wiley), vol. 17, no. 15, pp. 3501-3511, 2023. Doi: <a href="https://dx.doi.org/10.1049/gtd2.12886" target="_blank" rel="noreferrer">10.1049/gtd2.12886<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J50</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Sopelsa Neto, N. F., Meyer, L. H., Mariani, V. C., et al. Group method of data handling using Christiano–Fitzgerald random walk filter for insulator fault prediction. <em>Sensors</em> (MDPI), vol. 23, no. 13, p. 6118, 2023. Doi: <a href="https://dx.doi.org/10.3390/s23136118" target="_blank" rel="noreferrer">10.3390/s23136118<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J49</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Mariani, V. C., Coelho, L. S. Aggregating Prophet and seasonal trend decomposition for time series forecasting of Italian electricity spot prices. <em>Energies</em> (MDPI), vol. 16, no. 3, p. 1371, 2023. Doi: <a href="https://dx.doi.org/10.3390/en16031371" target="_blank" rel="noreferrer">10.3390/en16031371<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J48</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Seman, L. O., <strong>Stefenon, S. F.</strong>, Mariani, V. C., Coelho, L. S. Ensemble learning methods using the Hodrick-Prescott filter for fault forecasting in insulators of the electrical power grids. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 152, p. 109269, 2023. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2023.109269" target="_blank" rel="noreferrer">10.1016/j.ijepes.2023.109269<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J47</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Cabral, S. H. L., <strong>Stefenon, S. F.</strong>, Ovejero, R. G., Leithardt, V. R. Q. Practical validation of a new analytical method for the analysis of power transmission lines at steady state. <em>IEEE Access</em> (IEEE), vol. 11, pp. 87667-87675, 2023. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2023.3303410" target="_blank" rel="noreferrer">10.1109/ACCESS.2023.3303410<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J46</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Singh, G., <strong>Stefenon, S. F.</strong>, Yow, K-C. Interpretable visual transmission lines inspections using pseudo-prototypical part network. <em>Machine Vision and Applications</em> (Springer Nature), vol. 34, p. 41, 2023. Doi: <a href="https://dx.doi.org/10.1007/s00138-023-01390-6" target="_blank" rel="noreferrer">10.1007/s00138-023-01390-6<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J45</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Souza, B. J., <strong>Stefenon, S. F.</strong>, Singh, G., et al. Hybrid-YOLO for classification of insulators defects in transmission lines based on UAV. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 148, p. 108982, 2023. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2023.108982" target="_blank" rel="noreferrer">10.1016/j.ijepes.2023.108982<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J44</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Corso, M.P., <strong>Stefenon, S. F.</strong>, Singh, G., et al. Evaluation of visible contamination on power grid insulators using convolutional neural networks. <em>Electrical Engineering</em> (Springer Nature), vol. 105, pp. 3881–3894, 2023. Doi: <a href="https://dx.doi.org/10.1007/s00202-023-01915-2" target="_blank" rel="noreferrer">10.1007/s00202-023-01915-2<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J43</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Klaar, A. C. R., <strong>Stefenon, S. F.</strong>, Seman, L. O., Mariani, V. C., Coelho, L. S. Optimized EWT- Seq2Seq-LSTM with attention mechanism to insulators fault prediction. <em>Sensors</em> (MDPI), vol. 23, no. 6, p. 3202, 2023. Doi: <a href="https://dx.doi.org/10.3390/s23063202" target="_blank" rel="noreferrer">10.3390/s23063202<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J42</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Klaar, A. C. R., <strong>Stefenon, S. F.</strong>, Seman, L. O., Mariani, V. C., Coelho, L. S. Structure optimization of ensemble learning methods and seasonal decomposition approaches to energy price forecasting in Latin America: A case study about Mexico. <em>Energies</em> (MDPI), vol. 16, no. 7, p. 3184, 2023. Doi: <a href="https://dx.doi.org/10.3390/en16073184" target="_blank" rel="noreferrer">10.3390/en16073184<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J41</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Westarb, G., <strong>Stefenon, S. F.</strong>, Hoppe, A. F., Sartori, A., Klaar, A. C. R., Leithardt, V. R. Q. Complex graph neural networks for medication interaction verification. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 44, no. 6, pp. 10383-10395, 2023. Doi: <a href="https://dx.doi.org/10.3233/JIFS-223656" target="_blank" rel="noreferrer">10.3233/JIFS-223656<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J40</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Starke, L., Hoppe, A. F., Sartori, A., <strong>Stefenon, S. F.</strong>, et al. Interference recommendation for the pump sizing process in progressive cavity pumps using graph neural networks. <em>Scientific Reports</em> (Spring. Nature), vol. 13, no. 1, pp. 16884, 2023. Doi: <a href="https://dx.doi.org/10.1038/s41598-023-43972-4" target="_blank" rel="noreferrer">10.1038/s41598-023-43972-4<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J39</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Surek, G. A. S., Seman, L. O., <strong>Stefenon, S. F.</strong>, Mariani, V. C., Coelho, L. S. Video-based human activity recognition using deep learning approaches. <em>Sensors</em> (MDPI), vol. 23, no. 14, p. 6384, 2023. Doi: <a href="https://dx.doi.org/10.3390/s231463842" target="_blank" rel="noreferrer">10.3390/s23146384<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J38</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Wilbert, H. J., Hoppe, A. F., Sartori, A., <strong>Stefenon, S. F.</strong>, Silva, L. A. Recency, frequency, monetary value, clustering, and internal and external indices for customer segmentation from retail data. <em>Algorithms</em> (MDPI), vol. 16, no. 9, p. 396, 2023. Doi: <a href="https://dx.doi.org/10.3390/a16090396" target="_blank" rel="noreferrer">10.3390/a16090396<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.1)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J37</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Borré, A., Seman, L. O., Camponogara, E., <strong>Stefenon, S. F.</strong>, Mariani, V. C., Coelho, L. S. Machine fault detection using a hybrid CNN-LSTM attention-based model. <em>Sensors</em> (MDPI), vol. 23, no. 9, p. 4512, 2023. Doi: <a href="https://dx.doi.org/10.3390/s23094512" target="_blank" rel="noreferrer">10.3390/s23094512<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J36</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Fernandes, A. M. R., Cassaniga, M. J., Passos, B, T., Comunello, E., <strong>Stefenon, S. F.</strong>, Leithardt, V. R. Q. Detection and classification of cracks and potholes in road images using texture descriptors. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 44, no. 6, pp. 10255-10274, 2023. Doi: <a href="https://dx.doi.org/10.3233/JIFS-223218" target="_blank" rel="noreferrer">10.3233/JIFS-223218<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">J35</span>
+              <span>Journal</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation">Glasenapp, L. A., Hoppe, A. F., Wisintainer, M. A., Sartori, A. <strong>Stefenon, S. F.</strong> OCR applied for identification of vehicles with irregular documentation using IoT. <em>Electronics</em> (MDPI), vol. 12, no. 5, p. 1083, 2023. Doi: <a href="https://dx.doi.org/10.3390/electronics12051083" target="_blank" rel="noreferrer">10.3390/electronics12051083<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J34</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Sopelsa Neto, N. F., et al. Echo state network applied for classification of medium voltage insulators. <em>International Journal of Electrical Power</em> &amp; <em>Energy Systems</em> (Elsevier), vol. 134, p. 107336, 2022. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2021.107336" target="_blank" rel="noreferrer">10.1016/j.ijepes.2021.107336<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J33</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Ribeiro, M. H. D. M., Nied, A., Yow, K-C., Mariani, V. C., Coelho, L. S., et al. Time series forecasting using ensemble learning methods for emergency prevention in hydroelectric power plants with dam. <em>Electric Power Systems Research</em> (Elsevier), vol. 202, p. 107584, 2022. Doi: <a href="https://dx.doi.org/10.1016/j.epsr.2021.107584" target="_blank" rel="noreferrer">10.1016/j.epsr.2021.107584<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J32</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Yow, K-C., Nied, A., Meyer, L.H. Classification of distribution power grid structures using inception v3 deep neural network. <em>Electrical Engineering</em> (Springer Nature), vol. 104, pp. 4557–4569, 2022. Doi: <a href="https://dx.doi.org/10.1007/s00202-022-01641-1" target="_blank" rel="noreferrer">10.1007/s00202-022-01641-1<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J31</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Singh, G., Yow, K-C., Cimatti, A. Semi-ProtoPNet deep neural network for the classification of defective power grid distribution structures. <em>Sensors</em> (MDPI), vol. 22, no. 13, p. 4859, 2022. Doi: <a href="https://dx.doi.org/10.3390/s22134859" target="_blank" rel="noreferrer">10.3390/s22134859<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J30</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Corso, M. P., Nied, A., Perez, F. L., Yow, K.-C., et al. Classification of insulators using neural network based on computer vision. <em>IET Generation, Transmission &amp; Distribution</em> (Wiley), vol. 16, no. 6, pp. 1096-1107, 2022. Doi: <a href="https://dx.doi.org/10.1049/gtd2.12353" target="_blank" rel="noreferrer">10.1049/gtd2.12353<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J29</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Bruns, R., Sartori, A., et al. Analysis of the ultrasonic signal in polymeric contaminated insulators through ensemble learning methods. <em>IEEE Access</em> (IEEE), vol. 10, pp. 33980-33991, 2022. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2022.3161506" target="_blank" rel="noreferrer">10.1109/ACCESS.2022.3161506<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J28</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O. Pavan, B. A., Ovejero, R. G., et al. Optimal design of electrical power distribution grid spacers using finite element method. <em>IET Generation, Transmission &amp; Distribution</em> (Wiley), vol. 16, pp. 1865–1876, 2022. Doi: <a href="https://dx.doi.org/10.1049/gtd2.12425" target="_blank" rel="noreferrer">10.1049/gtd2.12425<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J27</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Furtado Neto, C. S., Coelho, T. S., Nied, A., Yamaguchi, C. K., Yow, K-C. Particle swarm optimization for design of insulators of distribution power system based on finite element method. <em>Electrical Engineering</em> (Springer Nature), vol. 104, pp. 615–622, 2022. Doi: <a href="https://dx.doi.org/10.1007/s00202-021-01332-3" target="_blank" rel="noreferrer">10.1007/S00202-021-01332-3<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.9)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J26</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation">Sopelsa Neto, N.F., <strong>Stefenon, S. F.</strong>, Meyer, L.H., Ovejero, R.G., et al. Fault prediction based on leakage current in contaminated insulators using enhanced time series forecasting models. <em>Sensors</em> (MDPI), vol. 22, no. 16, p. 6121, 2022. Doi: <a href="https://dx.doi.org/10.3390/s22166121" target="_blank" rel="noreferrer">10.3390/s22166121<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J25</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation">Fernandes, F., <strong>Stefenon, S. F.</strong>, Seman, L. O., Nied, A., Ferreira, F. C. S., Subtil, M. C. M., Klaar, A. C. R., Leithardt, V. R. Q. Long short-term memory stacking model to predict the number of cases and deaths caused by COVID-19. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 42, no. 6, pp. 6221-6234, 2022. Doi: <a href="https://dx.doi.org/10.3233/JIFS-212788" target="_blank" rel="noreferrer">10.3233/JIFS-212788<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J24</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation">Branco, N. W., Cavalca, M. S. M., <strong>Stefenon, S. F.</strong>, Leithardt, V. R. Q. L. Wavelet LSTM for fault forecasting in electrical power grids. <em>Sensors</em> (MDPI), vol. 22, no. 21, p. 8323, 2022. Doi: <a href="https://dx.doi.org/10.3390/s22218323" target="_blank" rel="noreferrer">10.3390/s22218323<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J23</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation">Vieira, J. C., Sartori, A., <strong>Stefenon, S. F.</strong>, Perez, F. L., Jesus, G. S. Low-cost CNN for automatic violence recognition on embedded system. <em>IEEE Access</em> (IEEE), vol. 10, pp. 25190-25202, 2022. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2022.3155123" target="_blank" rel="noreferrer">10.1109/ACCESS.2022.3155123<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">J22</span>
+              <span>Journal</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation">Medeiros, A., Sartori, A., <strong>Stefenon, S. F.</strong>, Meyer, L. H., Nied, A. Comparison of artificial intelligence techniques to failure prediction in contaminated insulators based on leakage current. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 42, no. 4, pp. 3285-3298, 2022. Doi: <a href="https://dx.doi.org/10.3233/JIFS-211126" target="_blank" rel="noreferrer">10.3233/JIFS-211126<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J21</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Ribeiro, M. H. D. M., Nied, A., Mariani, V. C., Coelho, L. S., et al. et al. Hybrid wavelet stacking ensemble model for insulators contamination forecasting. <em>IEEE Access</em> (IEEE), vol. 9, pp. 66387-66397, 2021. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2021.3076410" target="_blank" rel="noreferrer">10.1109/ACCESS.2021.3076410<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J20</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Kasburg, C., Freire, R. Z., et al. Photovoltaic power forecasting using wavelet neuro-fuzzy for active solar trackers. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 40, no. 1, pp. 1083-1096, 2021. Doi: <a href="https://dx.doi.org/10.3233/JIFS-201279" target="_blank" rel="noreferrer">10.3233/JIFS-201279<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J19</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation">Sopelsa Neto, N. F., <strong>Stefenon, S. F.</strong>, Meyer, L. H., Bruns, R., Nied, A., Seman, L. O., et al. A study of multilayer perceptron networks applied to classification of ceramic insulators using ultrasound. <em>Applied Sciences</em> (MDPI), vol. 11, no. 4, p. 1592, 2021. Doi: <a href="https://dx.doi.org/10.3390/app11041592" target="_blank" rel="noreferrer">10.3390/app11041592<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J18</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation">Corso, M. P., Perez, F. L., <strong>Stefenon, S. F.</strong>, Yow, K.-C., Ovejero, R. G., Leithardt, V. R. Q. Classification of contaminated insulators using k-nearest neighbors based on computer vision. <em>Computers</em> (MDPI), vol. 10, no. 9, p. 112, 2021. Doi: <a href="https://dx.doi.org/10.3390/computers10090112" target="_blank" rel="noreferrer">10.3390/computers10090112<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 4.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J17</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation">Itajiba, J. A., Varnier, C. A. C., Cabral, S. H. L., <strong>Stefenon, S. F.</strong>, et al. Experimental comparison of preferential vs. common delta connections for the star-delta starting of induction motors. <em>Energies</em> (MDPI), vol. 14, no. 5, p. 1318, 2021. Doi: <a href="https://dx.doi.org/10.3390/en14051318" target="_blank" rel="noreferrer">10.3390/en14051318<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J16</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation">Cabral, S. H., Bertoli, S. L., Medeiros, A., Hillesheim, C. R., Souza, C. K., <strong>Stefenon, S. F.</strong>, et al. Practical aspects of the skin effect in low frequencies in rectangular conductors. <em>IEEE Access</em> (IEEE), vol. 9, pp. 49424-49433, 2021. Doi: <a href="https://dx.doi.org/10.1109/ACCESS.2021.3069821" target="_blank" rel="noreferrer">10.1109/ACCESS.2021.3069821<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2021">
+            <div class="publication-meta">
+              <span class="publication-id">J15</span>
+              <span>Journal</span>
+              <span>2021</span>
+            </div>
+            <p class="publication-citation">Santos, G. H., Seman, L. O., Bezerra, E. A., Leithardt, V. R. Q., Mendes, A. S., <strong>Stefenon, S. F.</strong> Static attitude determination using convolutional neural networks. <em>Sensors</em> (MDPI), vol. 21, no. 19, p. 6419, 2021. Doi: <a href="https://dx.doi.org/10.3390/s21196419" target="_blank" rel="noreferrer">10.3390/s21196419<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.5)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J14</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Grebogi, R. B., et al. Optimized ensemble extreme learning machine for classification of electrical insulators conditions. <em>IEEE Transactions on Industrial Electronics</em> (IEEE), vol. 67, no. 6, pp. 5170-5178, 2020. Doi: <a href="https://dx.doi.org/10.1109/TIE.2019.2926044" target="_blank" rel="noreferrer">10.1109/TIE.2019.2926044<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 7.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J13</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Ribeiro, M. H. D. M., Nied, A., Mariani, V. C., Coelho, L. S., Rocha, D. F. M., et al. Wavelet group method of data handling for fault prediction in electrical power insulators. <em>International Journal of Electrical Power &amp; Energy Systems</em> (Elsevier), vol. 123, p. 106269, 2020. Doi: <a href="https://dx.doi.org/10.1016/j.ijepes.2020.106269" target="_blank" rel="noreferrer">10.1016/j.ijepes.2020.106269<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 5.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J12</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Kasburg, C., Nied, A., Klaar, A. C. R., et al. Hybrid deep learning for power generation forecasting in active solar trackers. <em>IET Generation, Transmission &amp; Distribution</em> (Wiley), vol. 14, no. 23, pp. 5667-5674, 2020. Doi: <a href="https://dx.doi.org/10.1049/iet-gtd.2020.0814" target="_blank" rel="noreferrer">10.1049/iet-gtd.2020.0814<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J11</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Freire, R. Z., Meyer, L. H, Corso, M. P., Sartori, A., Nied, A., et al. Fault detection in insulators based on ultrasonic signal processing using a hybrid deep learning technique. <em>IET Science, Measurement and Technology</em> (Wiley), vol. 14, no. 10, pp. 953-961, 2020. Doi: <a href="https://dx.doi.org/10.1049/iet-smt.2020.0083" target="_blank" rel="noreferrer">10.1049/iet-smt.2020.0083<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J10</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Branco, N. W., Nied, A., Bertol, D. W., Finardi, E., Sartori, A., et al. Analysis of training techniques of ann for classification of insulators in electrical power systems. <em>IET Generation, Transmission &amp; Distribution</em> (Wiley), vol. 14, no. 8, pp. 1591-1597, 2020. Doi: <a href="https://dx.doi.org/10.1049/iet-gtd.2019.1579" target="_blank" rel="noreferrer">10.1049/iet-gtd.2019.1579<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J9</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Seman, L. O., Furtado Neto, C. S., Nied, A., Seganfredo, D. M., Luz, F. G., et al. Electric field evaluation using the finite element method and proxy models for the design of stator slots in a permanent magnet synchronous motor. <em>Electronics</em> (MDPI), vol. 9, no. 11, p. 1975, 2020. Doi: <a href="https://dx.doi.org/10.3390/electronics9111975" target="_blank" rel="noreferrer">10.3390/electronics9111975<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 2.6)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J8</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Freire, R. Z., Coelho, L. S., Meyer, L. H., Grebogi, G., Buratto, W. G., et al. Electrical insulator fault forecasting based on a wavelet neuro-fuzzy system. <em>Energies</em> (MDPI), vol. 13, no. 2, p. 484, 2020. Doi: <a href="https://dx.doi.org/10.3390/en13020484" target="_blank" rel="noreferrer">10.3390/en13020484<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J7</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation">Muniz, R. N., <strong>Stefenon, S. F.</strong>, Buratto, W. G., Nied, A., Meyer, L. H., Finardi, E., et al. Tools for measuring energy sustainability: a comparative review. <em>Energies</em> (MDPI), vol. 13, no. 9, p. 2366, 2020. Doi: <a href="https://dx.doi.org/10.3390/en13092366" target="_blank" rel="noreferrer">10.3390/en13092366<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2020">
+            <div class="publication-meta">
+              <span class="publication-id">J6</span>
+              <span>Journal</span>
+              <span>2020</span>
+            </div>
+            <p class="publication-citation">Ribeiro, M. H. D. M., <strong>Stefenon, S. F.</strong>, Lima, J. D., Nied, A., Mariani, V. C. et al. Electricity price forecasting based on self-adaptive decomposition and heterogeneous ensemble learning. <em>Energies</em> (MDPI), vol. 13, no. 19, p. 5190, 2020. Doi: <a href="https://dx.doi.org/10.3390/en13195190" target="_blank" rel="noreferrer">10.3390/en13195190<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 3.2)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2019">
+            <div class="publication-meta">
+              <span class="publication-id">J5</span>
+              <span>Journal</span>
+              <span>2019</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Nied, A. FEM applied to evaluation of the influence of electric field on design of the stator slots in PMSM. <em>IEEE Latin America Transactions</em> (IEEE), vol. 17, no. 04, pp. 590-596, 2019. Doi: <a href="https://dx.doi.org/10.1109/TLA.2019.8891883" target="_blank" rel="noreferrer">10.1109/TLA.2019.8891883<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2019">
+            <div class="publication-meta">
+              <span class="publication-id">J4</span>
+              <span>Journal</span>
+              <span>2019</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Silva, M. C., Bertol, D. W., Meyer, L. H., Nied, A. Fault diagnosis of insulators from ultrasound detection using neural networks. <em>Journal of Intelligent &amp; Fuzzy Systems</em> (IOS Press), vol. 37, no. 5, pp. 6655-6664, 2019. Doi: <a href="https://dx.doi.org/10.3233/JIFS-190013" target="_blank" rel="noreferrer">10.3233/JIFS-190013<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.0)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2013">
+            <div class="publication-meta">
+              <span class="publication-id">J3</span>
+              <span>Journal</span>
+              <span>2013</span>
+            </div>
+            <p class="publication-citation">Kasburg, C., <strong>Stefenon, S. F.</strong> Deep learning for photovoltaic generation forecast in active solar trackers. <em>IEEE Latin America Transactions</em> (IEEE), vol. 17, no. 12, pp. 2013-2019, 2019. Doi: <a href="https://dx.doi.org/10.1109/TLA.2019.9011546" target="_blank" rel="noreferrer">10.1109/TLA. 2019.9011546<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">J2</span>
+              <span>Journal</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Américo, J. P., Meyer, L. H., Grebogi, R., Nied, A. Analysis of the electric field in porcelain pin-type insulators via finite elements software. <em>IEEE Latin America Transactions</em> (IEEE), vol. 16, no. 10, 2505-2512, 2018. Doi: <a href="https://dx.doi.org/10.1109/TLA.2018.8795129" target="_blank" rel="noreferrer">10.1109/TLA.2018.8795129<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="journal" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">J1</span>
+              <span>Journal</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation">Corso, M. P., <strong>Stefenon, S. F.</strong>, Couto, V. F., Cabral, S. H. L., Nied, A. Evaluation of methods for electric field calculation in transmission lines. <em>IEEE Latin America Transactions</em> (IEEE), vol. 16, no. 12, pp. 2970-2976, 2018. Doi: <a href="https://dx.doi.org/10.1109/TLA.2018.8804264" target="_blank" rel="noreferrer">10.1109/TLA.2018.8804264<span aria-hidden="true"> ↗</span></a>. <strong>(JCR IF = 1.3)</strong></p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">C11</span>
+              <span>Conference</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Silva, A. A., Gonzalez, G. V., <strong>Stefenon, S. F.</strong>, Ribeiro, M. H. D. M. Optimized cluster-wise deep learning framework for multi-horizon solar radiation forecasting. In: <em>International Conference on AI and Emerging Technology for Sustainable Future,</em> vol. 2. IEEE: Catania, Italy, pp. 1-5, 2026.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">C10</span>
+              <span>Conference</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation">Bortolini, V., Silva, A. A., Gonzalez, G. V., <strong>Stefenon, S. F.</strong>, Ribeiro, M. H. D. M. Multi-horizon wind speed forecasting using VMD-PSO and deep learning models. In: <em>International Conference on AI and Emerging Technology for Sustainable Future,</em> vol. 2. IEEE: Catania, Italy, pp. 1-5, 2026</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2026">
+            <div class="publication-meta">
+              <span class="publication-id">C9</span>
+              <span>Conference</span>
+              <span>2026</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Matos-Carvalho, J. P., Seman, L. O., Leithardt, V. R., Yow, K. C. Optimized Gaussian large language model (LLM) reprogrammed for temporal predictions. In: <em>International Conference on Intelligent Environments,</em> vol. 22. IEEE: Lisbon, Portugal, pp. 1-8, 2026. Doi: <a href="https://dx.doi.org/10.1109/IE69249.2026.11539046" target="_blank" rel="noreferrer">10.1109/IE69249.2026.11539046<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">C8</span>
+              <span>Conference</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Carvalho, J. P. M., <strong>Stefenon, S. F.</strong>, Yow, K. C., Ovejero, R. G., Leithardt, V. R. Q. N-BEATS neural network applied for insulator fault prediction considering EMD methods. <em>In: International Conference on Electrical, Computer, Communications and Mechatronics Engineering.</em> vol. 5. IEEE: Zanzibar, Tanzania, pp. 1-6, 2025. Doi: <a href="https://dx.doi.org/10.1109/ICECCME64568.2025.11277686" target="_blank" rel="noreferrer">10.1109/ICECCME64568.2025.11277686<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2025">
+            <div class="publication-meta">
+              <span class="publication-id">C7</span>
+              <span>Conference</span>
+              <span>2025</span>
+            </div>
+            <p class="publication-citation">Yamaguchi, C. K., <strong>Stefenon, S. F.</strong>, Santana, J. F. P. S., Leithardt, V. R. Q. Are Graph Neural Networks Better than Standard Classifiers?. <em>In:</em> International Conference on Disruptive Technologies, Tech Ethics and Artificial Intelligence. vol. 1465. Springer: Salamanca, Spain, pp. 36-47, 2025. Doi: <a href="https://dx.doi.org/10.1007/978-3-031-99474-6_4" target="_blank" rel="noreferrer">10.1007/978-3-031-99474-6_4<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2023">
+            <div class="publication-meta">
+              <span class="publication-id">C6</span>
+              <span>Conference</span>
+              <span>2023</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Cristoforetti, M., Cimatti, A. Towards automatic digitalization of railway engineering schematics. <em>In: AIxIA 2023 – Advances in Artificial Intelligence</em>. vol. 14318. Springer: Roma, Italy, pp. 453–466, 2023. Doi: <a href="https://dx.doi.org/10.1007/978-3-031-47546-7_31" target="_blank" rel="noreferrer">10.1007/978-3-031-47546-7 31<span aria-hidden="true"> ↗</span></a>.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2022">
+            <div class="publication-meta">
+              <span class="publication-id">C5</span>
+              <span>Conference</span>
+              <span>2022</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong> Emergency prevention in hydroelectric plants using ensemble models. <em>Workshop Nazionale per il Trasferimento Tecnologico e l’Alta Formazione</em>. Università degli Studi di Verona: Verona, Italy, p. 1, 2022.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">C4</span>
+              <span>Conference</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation">Kasburg, C., <strong>Stefenon, S. F.</strong> Evaluation of the efficiency of photovoltaic power plants using dual-axis solar tracker. <em>II EDUPALA - International Congress on Pertinent Knowledge for Education in Latin America</em>. UNIPLAC: Lages, Brazil, p. 1267, 2018.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">C3</span>
+              <span>Conference</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation">Kasburg, C., <strong>Stefenon, S. F.</strong> Evaluation of the efficiency of photovoltaic power plants using dual-axis solar tracker. <em>II EDUPALA - International Congress on Pertinent Knowledge for Education in Latin America</em>. UNIPLAC: Lages, Brazil, p. 1267, 2018.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">C2</span>
+              <span>Conference</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation">Americo, J. P<strong>., Stefenon, S. F.</strong>, Lima, J. D. Meta-analysis and systematic mapping of the application of multicriteria decision-making techniques in the energy sector. <em>VIII Brazilian Congress of Production Engineering</em>. ConBRepro: Ponta Grossa, Brazil, pp. 1-11, 2018.</p>
+          </article>
+          <article class="publication-card" data-kind="conference" data-year="2018">
+            <div class="publication-meta">
+              <span class="publication-id">C1</span>
+              <span>Conference</span>
+              <span>2018</span>
+            </div>
+            <p class="publication-citation">Branco, E. O., Yamaguchi, C. K., <strong>Stefenon, S. F.</strong> Relation of assistive technology and independence in the support system for the visually impaired. <em>II EDUPALA - International Congress on Pertinent Knowledge for Education in Latin America</em>. UNIPLAC: Lages, Brazil, p. 1276, 2018.</p>
+          </article>
+          <article class="publication-card" data-kind="book" data-year="2019">
+            <div class="publication-meta">
+              <span class="publication-id">B4</span>
+              <span>Book</span>
+              <span>2019</span>
+            </div>
+            <p class="publication-citation">Americo, J. P., <strong>Stefenon, S. F.</strong> Practical classes in the electricity laboratory. EDUNIPLAC, Lages, Brazil, p. 93, 2019. ISBN: 978-85-89237-27-7.</p>
+          </article>
+          <article class="publication-card" data-kind="book" data-year="2017">
+            <div class="publication-meta">
+              <span class="publication-id">B3</span>
+              <span>Book</span>
+              <span>2017</span>
+            </div>
+            <p class="publication-citation">Americo, J. P., Cabral, S. H. L., <strong>Stefenon, S.F.</strong>, Study of Partial Discharge Measurement in Power Transformers. Lambert Academic Publishing, Saarbrucken, Germany, p. 101, 2017. ISBN: 978-3-330-33094-8.</p>
+          </article>
+          <article class="publication-card" data-kind="book" data-year="2016">
+            <div class="publication-meta">
+              <span class="publication-id">B2</span>
+              <span>Book</span>
+              <span>2016</span>
+            </div>
+            <p class="publication-citation">Ciocari, E., <strong>Stefenon, S. F.</strong>, Leite, J. A. N. Challenges in the operation of hydroelectric plants in the Uruguay river basin. Alternativa, Rio de Janeiro, Brazil, p. 70, 2016. ISBN: 978-8-563-74952-9.</p>
+          </article>
+          <article class="publication-card" data-kind="book" data-year="2015">
+            <div class="publication-meta">
+              <span class="publication-id">B1</span>
+              <span>Book</span>
+              <span>2015</span>
+            </div>
+            <p class="publication-citation"><strong>Stefenon, S. F.</strong>, Meyer, L. H. Inspection of electrical distribution network. Lambert Academic Publishing, Saarbrucken, Germany, p. 80, 2015. ISBN: 978-3-659-81204-0.</p>
+          </article>
+            </div>
+            <div class="empty-state" id="emptyState" hidden>
+              <h3 class="h5">No publications found</h3>
+              <p class="mb-0">Try changing the search term or filters.</p>
+            </div>
+
+            <section class="metrics-panel" aria-labelledby="metricsTitle">
+              <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+                <div><p class="publications-kicker mb-2">Academic profiles</p><h2 id="metricsTitle" class="mb-0">Publication metrics</h2></div>
+                <p class="metrics-note mb-0 align-self-md-end">Metrics provided on June 5, 2026</p>
+              </div>
+              <div class="table-responsive">
+                <table class="table metrics-table align-middle">
+                  <thead><tr><th>Database</th><th>Papers</th><th>Citations</th><th><em>h</em>-index</th></tr></thead>
+                  <tbody>
+                    <tr><td><a href="https://www.scopus.com/authid/detail.uri?authorId=57194147390" target="_blank" rel="noreferrer">Scopus ↗</a></td><td>103</td><td>3,657</td><td>40</td></tr>
+                    <tr><td><a href="https://www.webofscience.com/wos/author/record/AAD-7639-2019" target="_blank" rel="noreferrer">Web of Science ↗</a></td><td>80</td><td>3,077</td><td>36</td></tr>
+                    <tr><td><a href="https://scholar.google.com/citations?user=ToyM0y8AAAAJ" target="_blank" rel="noreferrer">Google Scholar ↗</a></td><td>140</td><td>5,159</td><td>48</td></tr>
+                    <tr><td><a href="https://www.researchgate.net/profile/Stefano-Frizzo-Stefenon-2" target="_blank" rel="noreferrer">ResearchGate ↗</a></td><td>133</td><td>4,744</td><td>46</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container d-flex flex-column flex-sm-row justify-content-between gap-2">
+      <p>© 2026 Stefano Frizzo Stefenon</p><p>Researcher · Engineer · Educator</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script>
+    (() => {
+      const cards = [...document.querySelectorAll('.publication-card')];
+      const buttons = [...document.querySelectorAll('.filter-button')];
+      const search = document.getElementById('publicationSearch');
+      const year = document.getElementById('yearFilter');
+      const count = document.getElementById('resultsCount');
+      const empty = document.getElementById('emptyState');
+      let kind = 'all';
+
+      [...new Set(cards.map(card => card.dataset.year))]
+        .filter(value => value !== 'Undated')
+        .sort((a, b) => Number(b) - Number(a))
+        .forEach(value => year.add(new Option(value, value)));
+
+      function applyFilters() {
+        const query = search.value.trim().toLocaleLowerCase();
+        let visible = 0;
+        cards.forEach(card => {
+          const matchesKind = kind === 'all' || card.dataset.kind === kind;
+          const matchesYear = year.value === 'all' || card.dataset.year === year.value;
+          const matchesSearch = !query || card.textContent.toLocaleLowerCase().includes(query);
+          card.hidden = !(matchesKind && matchesYear && matchesSearch);
+          if (!card.hidden) visible += 1;
+        });
+        count.textContent = `${visible} work${visible === 1 ? '' : 's'} shown`;
+        empty.hidden = visible !== 0;
+      }
+
+      buttons.forEach(button => button.addEventListener('click', () => {
+        buttons.forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        kind = button.dataset.filter;
+        applyFilters();
+      }));
+      search.addEventListener('input', applyFilters);
+      year.addEventListener('change', applyFilters);
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>
