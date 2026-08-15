@@ -41,7 +41,7 @@ a { text-decoration:none; }
 .stat span { margin-top:.18rem; color:var(--muted); font-size:.75rem; }
 
 .section-pad { padding:112px 0; }
-.section-title { max-width:570px; margin:0; font-size:clamp(2.2rem,4vw,3.7rem); line-height:1.08; letter-spacing:-.045em; }
+.section-title { max-width:570px; margin:0; font-size:clamp(1.9rem,3vw,3.1rem); line-height:1.1; letter-spacing:-.04em; }
 .section-aside { max-width:380px; color:var(--muted); line-height:1.7; }
 .about-lead { color:var(--ink); font-size:clamp(1.45rem,2.5vw,2.05rem); line-height:1.4; letter-spacing:-.025em; }
 .body-copy { color:var(--muted); line-height:1.8; }
@@ -83,7 +83,7 @@ a { text-decoration:none; }
 
 .contact-section { padding:82px 0; background:#fff; }
 .contact-panel { padding:3.25rem; border-radius:20px; background:var(--teal); }
-.contact-panel h2 { max-width:720px; margin:0; font-size:clamp(2rem,4vw,3.3rem); line-height:1.1; letter-spacing:-.045em; }
+.contact-panel h2 { max-width:720px; margin:0; font-size:clamp(1.8rem,3vw,2.8rem); line-height:1.1; letter-spacing:-.04em; }
 .contact-panel .section-kicker { color:#16685f; }
 .contact-panel .btn-dark { background:var(--navy); border-color:var(--navy); }
 
