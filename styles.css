@@ -73,7 +73,7 @@ a { text-decoration:none; }
 .section-kicker.light { color:var(--teal); }
 .research-intro { color:#b9c8d5; font-size:1.2rem; line-height:1.75; }
 .research-card { min-height:250px; height:100%; padding:1.7rem; border:1px solid rgba(255,255,255,.11); border-radius:14px; background:rgba(255,255,255,.045); }
-.research-card>span { color:var(--teal); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.72rem; }
+.research-card>span { color:var(--teal); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:1rem; font-weight:600; }
 .research-card h3 { margin:3.6rem 0 .8rem; font-size:1.28rem; }
 .research-card p { color:#aebdca; font-size:.88rem; line-height:1.7; }
 .research-link { display:flex; flex-direction:column; justify-content:flex-end; background:var(--teal); color:var(--navy); }
