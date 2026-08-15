@@ -21,7 +21,7 @@ a { text-decoration:none; }
 .hero-grid { position:absolute; inset:0; opacity:.22; background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px); background-size:72px 72px; mask-image:linear-gradient(to right,transparent,#000 55%,transparent); }
 .eyebrow,.section-kicker { color:#109b8b; font-size:.76rem; font-weight:750; letter-spacing:.17em; text-transform:uppercase; }
 .hero .eyebrow { color:var(--teal); }
-.hero h1 { max-width:800px; font-size:clamp(2.3rem,4vw,3.8rem); line-height:1.1; letter-spacing:-.04em; }
+.hero h1 { max-width:800px; font-size:clamp(1.8rem, 3vw, 2.8rem); line-height:1.1; letter-spacing:-.04em; }
 .hero h1 span { color:var(--teal); }
 .hero-lead { max-width:690px; color:#c4cfda; font-size:clamp(1.05rem,1.7vw,1.22rem); line-height:1.7; }
 .hero-profile { max-width:390px; overflow:hidden; border:1px solid rgba(255,255,255,.13); border-radius:24px; background:rgba(255,255,255,.075); box-shadow:0 30px 70px rgba(0,0,0,.25); backdrop-filter:blur(14px); }
