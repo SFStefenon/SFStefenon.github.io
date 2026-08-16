@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">SS monogram with lightning bolt</title>
+  <desc id="desc">A navy SS monogram over a large lightning bolt on a teal-green background.</desc>
+
+  <rect width="512" height="512" rx="88" fill="#31D6BD"/>
+
+  <!-- Lightning bolt placed behind the monogram -->
+  <path d="M296 42h94l-70 166h89L204 470l63-186h-95z"
+        fill="#071A2F" opacity="0.24"/>
+
+  <!-- Dark separation outline keeps both letters clear over the bolt -->
+  <g transform="translate(256 256) scale(1.15) translate(-256 -256)" fill="none" stroke="#31D6BD" stroke-width="72" stroke-linecap="square" stroke-linejoin="round">
+    <path d="M235 143h-71c-39 0-60 20-60 52 0 29 19 45 54 54l45 12c33 9 49 28 49 57 0 38-23 58-68 58h-83"/>
+    <path d="M411 143h-71c-39 0-60 20-60 52 0 29 19 45 54 54l45 12c33 9 49 28 49 57 0 38-23 58-68 58h-83"/>
+  </g>
+
+  <!-- Foreground SS monogram -->
+  <g transform="translate(256 256) scale(1.15) translate(-256 -256)" fill="none" stroke="#071A2F" stroke-width="50" stroke-linecap="square" stroke-linejoin="round">
+    <path d="M235 143h-71c-39 0-60 20-60 52 0 29 19 45 54 54l45 12c33 9 49 28 49 57 0 38-23 58-68 58h-83"/>
+    <path d="M411 143h-71c-39 0-60 20-60 52 0 29 19 45 54 54l45 12c33 9 49 28 49 57 0 38-23 58-68 58h-83"/>
+  </g>
+</svg>
