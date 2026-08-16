@@ -9,6 +9,8 @@ a { text-decoration:none; }
 .brand-mark { display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background:var(--teal); color:var(--navy); font-size:.82rem; font-weight:800; }
 .cv-nav .nav-link { color:rgba(255,255,255,.72); font-size:.9rem; font-weight:500; }
 .cv-nav .nav-link:hover,.cv-nav .nav-link:focus { color:var(--teal); }
+.cv-nav .nav-publications{color:#4da3ff}.cv-nav .nav-publications:hover
+.cv-nav .nav-publications:focus{color:var(--teal)}
 .navbar-toggler { border-color:rgba(255,255,255,.2); }
 
 .btn { border-radius:9px; font-weight:650; padding:.72rem 1.2rem; transition:transform .2s ease,background .2s ease; }
