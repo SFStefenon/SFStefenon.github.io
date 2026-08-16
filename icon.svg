@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Artificial intelligence and electrical engineering icon</title>
+  <desc id="desc">A green icon combining a large AI processor and an electrical lightning bolt.</desc>
+
+  <!-- Green brand tile -->
+  <rect width="512" height="512" rx="96" fill="#31D6BD"/>
+
+  <!-- Large AI processor with bold pins -->
+  <g fill="none" stroke="#071A2F" stroke-width="24" stroke-linecap="round">
+    <path d="M176 54v51M256 54v51M336 54v51"/>
+    <path d="M176 407v51M256 407v51M336 407v51"/>
+    <path d="M54 176h51M54 256h51M54 336h51"/>
+    <path d="M407 176h51M407 256h51M407 336h51"/>
+  </g>
+  <rect x="94" y="94" width="324" height="324" rx="72" fill="none" stroke="#071A2F" stroke-width="30"/>
+
+  <!-- Large electrical bolt integrated into the processor -->
+  <path d="M282 126h82l-67 116h78L207 398l52-121h-94z"
+        fill="#071A2F" stroke="#31D6BD" stroke-width="12" stroke-linejoin="round"/>
+</svg>
