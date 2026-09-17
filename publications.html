@@ -33,7 +33,7 @@
         linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
     }
 
-    .publications-hero::after {
+    .s-hero::after {
       content: "";
       position: absolute;
       width: 22rem;
@@ -44,23 +44,23 @@
       border-radius: 50%;
     }
 
-    .publications-hero .container { position: relative; z-index: 1; }
-    .publications-hero h1 { max-width: 760px; font-size: clamp(2.4rem, 5vw, 4.5rem); line-height: 1.02; letter-spacing: -.045em; }
-    .publications-hero h1 span { color: var(--teal); }
-    .publications-lead { max-width: 720px; color: rgba(255,255,255,.74); font-size: 1.1rem; line-height: 1.75; }
-    .publications-kicker { color: var(--teal); text-transform: uppercase; letter-spacing: .15em; font-size: .78rem; }
+    .s-hero .container { position: relative; z-index: 1; }
+    .s-hero h1 { max-width: 760px; font-size: clamp(2.4rem, 5vw, 4.5rem); line-height: 1.02; letter-spacing: -.045em; }
+    .s-hero h1 span { color: var(--teal); }
+    .s-lead { max-width: 720px; color: rgba(255,255,255,.74); font-size: 1.1rem; line-height: 1.75; }
+    .s-kicker { color: var(--teal); text-transform: uppercase; letter-spacing: .15em; font-size: .78rem; }
 
-    .publication-stats { border-bottom: 1px solid #dce4e9; background: var(--white); }
-    .publication-stat { padding: 1.6rem 1rem; border-right: 1px solid #e2e8ec; }
-    .publication-stat:last-child { border-right: 0; }
-    .publication-stat strong { display: block; color: var(--navy); font-size: 1.7rem; line-height: 1; }
-    .publication-stat span { display: block; margin-top: .4rem; color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+    .-stats { border-bottom: 1px solid #dce4e9; background: var(--white); }
+    .-stat { padding: 1.6rem 1rem; border-right: 1px solid #e2e8ec; }
+    .-stat:last-child { border-right: 0; }
+    .-stat strong { display: block; color: var(--navy); font-size: 1.7rem; line-height: 1; }
+    .-stat span { display: block; margin-top: .4rem; color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
 
-    .publications-content { padding: 4.5rem 0 6rem; }
-    .publication-tools { position: sticky; top: 92px; }
-    .publication-tools h2 { font-size: 1.35rem; letter-spacing: -.02em; }
-    .publication-search { border: 1px solid #d8e1e7; border-radius: 0; padding: .85rem 1rem; box-shadow: none !important; }
-    .publication-search:focus { border-color: var(--teal); }
+    .s-content { padding: 4.5rem 0 6rem; }
+    .-tools { position: sticky; top: 92px; }
+    .-tools h2 { font-size: 1.35rem; letter-spacing: -.02em; }
+    .-search { border: 1px solid #d8e1e7; border-radius: 0; padding: .85rem 1rem; box-shadow: none !important; }
+    .-search:focus { border-color: var(--teal); }
 
     .filter-button {
       width: 100%;
@@ -78,7 +78,7 @@
     .year-select { border-radius: 0; border-color: #d8e1e7; padding: .72rem 2.25rem .72rem .85rem; }
     .results-count { color: var(--muted); font-size: .9rem; }
 
-    .publication-card {
+    .-card {
       margin-bottom: 1rem;
       padding: 1.55rem 1.7rem;
       border: 1px solid #dde5ea;
@@ -87,16 +87,16 @@
       transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .publication-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(7, 26, 47, .08); }
-    .publication-card[hidden] { display: none !important; }
-    .publication-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; margin-bottom: .75rem; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
-    .publication-meta span + span::before { content: "·"; margin-right: .55rem; color: #a6b2bc; }
-    .publication-id { color: var(--navy) !important; font-weight: 700; }
-    .publication-citation { margin: 0; color: #34495e; line-height: 1.75; }
-    .publication-citation strong { color: var(--ink); }
-    .publication-citation em { color: var(--navy); }
-    .publication-citation a { color: #087f72; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
-    .publication-citation a:hover { text-decoration: underline; }
+    .-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(7, 26, 47, .08); }
+    .-card[hidden] { display: none !important; }
+    .-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; margin-bottom: .75rem; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .-meta span + span::before { content: "·"; margin-right: .55rem; color: #a6b2bc; }
+    .-id { color: var(--navy) !important; font-weight: 700; }
+    .-citation { margin: 0; color: #34495e; line-height: 1.75; }
+    .-citation strong { color: var(--ink); }
+    .-citation em { color: var(--navy); }
+    .-citation a { color: #087f72; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+    .-citation a:hover { text-decoration: underline; }
     .empty-state { padding: 4rem 1rem; border: 1px dashed #c8d3da; background: rgba(255,255,255,.6); text-align: center; color: var(--muted); }
 
     .metrics-panel { margin-top: 4rem; padding: 2rem; background: var(--navy); color: var(--white); }
@@ -109,14 +109,14 @@
     .metrics-note { color: rgba(255,255,255,.55); font-size: .78rem; }
 
     @media (max-width: 991.98px) {
-      .publication-tools { position: static; }
-      .publications-content { padding-top: 3rem; }
+      .-tools { position: static; }
+      .s-content { padding-top: 3rem; }
     }
 
     @media (max-width: 575.98px) {
-      .publications-hero { padding: 8.5rem 0 4rem; }
-      .publication-stat { border-bottom: 1px solid #e2e8ec; }
-      .publication-card { padding: 1.25rem; }
+      .s-hero { padding: 8.5rem 0 4rem; }
+      .-stat { border-bottom: 1px solid #e2e8ec; }
+      .-card { padding: 1.25rem; }
     }
   </style>
 </head>
@@ -136,7 +136,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html#education">Education</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html#research">Research</a></li>
-          <li class="nav-item"><a class="nav-link nav-publications" href="publications.html">Publications</a></li>
+          <li class="nav-item"><a class="btn btn-accent btn-sm ms-lg-2" href="publications.html">Publications <span aria-hidden="true">↗</span></a></li>
           <li class="nav-item"><a class="btn btn-accent btn-sm ms-lg-2" href="https://github.com/SFStefenon" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></li>
         </ul>
       </div>
