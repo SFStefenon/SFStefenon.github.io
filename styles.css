@@ -105,7 +105,6 @@ footer p { margin:0; font-size:.78rem; }
 }
 @media (max-width:575.98px) {
   .hero { padding:120px 0 68px; }
-  .hero h1 { font-size:2rem; }
   .hero .btn { width:100%; }
   .monogram { height:170px; font-size:4.5rem; }
   .section-pad { padding:82px 0; }
