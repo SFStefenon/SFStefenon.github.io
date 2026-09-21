@@ -40,10 +40,10 @@ a { text-decoration:none; }
 .publication-card.laranja {border-left-color: #f59e0b;}
 .publication-card.azul {border-left-color: #2563eb;}
 .publication-card.vermelho {border-left-color: #dc2626;}
-.filter-button[data-filter="all"].active { border-left-color: #31d6bd; }
-.filter-button[data-filter="conference"].active { border-left-color: #f59e0b; }
-.filter-button[data-filter="journal"].active { border-left-color: #2563eb; }
-.filter-button[data-filter="book"].active { border-left-color: #dc2626; }
+.filter-button[data-filter="all"]:is(:hover,.active){border-left-color:#31d6bd}
+.filter-button[data-filter="journal"]:is(:hover,.active){border-left-color:#2563eb}
+.filter-button[data-filter="conference"]:is(:hover,.active){border-left-color:#f59e0b}
+.filter-button[data-filter="book"]:is(:hover,.active){border-left-color:#dc2626}
 
 .stats-strip { background:#fff; border-bottom:1px solid #dfe6eb; }
 .stat { display:flex; flex-direction:column; padding:1.65rem 2rem; border-right:1px solid #e3e9ed; }
