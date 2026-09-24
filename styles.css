@@ -24,6 +24,7 @@ a { text-decoration:none; }
 .eyebrow,.section-kicker { color:#109b8b; font-size:.76rem; font-weight:750; letter-spacing:.17em; text-transform:uppercase; }
 .hero .eyebrow { color:var(--teal); }
 .hero h1 { max-width:800px; font-size: 3rem; line-height:1.1; letter-spacing:-.04em; }
+.publications-hero .eyebrow { color: var(--teal); }
 .publications-hero .container h1 {font-size: 3rem;}
 .hero h1 span { color: var(--teal); }
 .publications-hero h1 span { color: var(--teal); }
