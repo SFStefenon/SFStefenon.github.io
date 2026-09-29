@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Master’s and Ph.D. supervision and research projects in artificial intelligence, energy, and intelligent engineering.">
+  <meta name="theme-color" content="#071a2f">
+  <title>Stefano Frizzo Stefenon | Supervision &amp; Projects</title>
+  <link rel="icon" href="icon2.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --navy: #071a2f;
+      --navy-soft: #0d2944;
+      --ink: #10243a;
+      --muted: #617082;
+      --teal: #31d6bd;
+      --paper: #f3f6f8;
+      --white: #fff;
+    }
+
+    body { background: var(--paper); color: var(--ink); }
+
+    .publications-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 10.5rem 0 5.5rem;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 88% 25%, rgba(49, 214, 189, .18), transparent 25rem),
+        linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    }
+
+     .publications-hero::after {
+      content: "";
+      position: absolute;
+      width: 22rem;
+      height: 22rem;
+      right: -7rem;
+      bottom: -13rem;
+      border: 1px solid rgba(49, 214, 189, .28);
+      border-radius: 50%;
+    }
+
+    .publications-hero .container { position: relative; z-index: 1; }
+    .publications-lead { max-width: 720px; color: rgba(255,255,255,.74); font-size: 1.1rem; line-height: 1.75; }
+    .publications-kicker { color: var(--teal); text-transform: uppercase; letter-spacing: .15em; font-size: .78rem; }
+
+    .publication-stats { border-bottom: 1px solid #dce4e9; background: var(--white); }
+    .publication-stat { padding: 1.6rem 1rem; border-right: 1px solid #e2e8ec; }
+    .publication-stat:last-child { border-right: 0; }
+    .publication-stat strong { display: block; color: var(--navy); font-size: 1.7rem; line-height: 1; }
+    .publication-stat span { display: block; margin-top: .4rem; color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+
+    .publications-content { padding: 4.5rem 0 6rem; }
+    .publication-tools { position: sticky; top: 92px; }
+    .publication-tools h2 { font-size: 1.35rem; letter-spacing: -.02em; }
+    .publication-search { border: 1px solid #d8e1e7; border-radius: 0; padding: .85rem 1rem; box-shadow: none !important; }
+    .publication-search:focus { border-color: var(--teal); }
+
+    .filter-button {
+      width: 100%;
+      padding: .68rem .85rem;
+      border: 0;
+      border-left: 3px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      transition: .2s ease;
+    }
+
+    .filter-button:hover,
+    .filter-button.active { border-left-color: var(--teal); background: var(--white); color: var(--navy); }
+    .year-select { border-radius: 0; border-color: #d8e1e7; padding: .72rem 2.25rem .72rem .85rem; }
+    .results-count { color: var(--muted); font-size: .9rem; }
+
+    .publication-card {
+      margin-bottom: 1rem;
+      padding: 1.55rem 1.7rem;
+      border: 1px solid #dde5ea;
+      border-left: 4px solid var(--teal);
+      background: var(--white);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .publication-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(7, 26, 47, .08); }
+    .publication-card[hidden] { display: none !important; }
+    .publication-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; margin-bottom: .75rem; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .publication-meta span + span::before { content: "·"; margin-right: .55rem; color: #a6b2bc; }
+    .publication-id { color: var(--navy) !important; font-weight: 700; }
+    .publication-citation { margin: 0; color: #34495e; line-height: 1.75; }
+    .publication-citation strong { color: var(--ink); }
+    .publication-citation em { color: var(--navy); }
+    .publication-citation a { color: #087f72; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+    .publication-citation a:hover { text-decoration: underline; }
+    .empty-state { padding: 4rem 1rem; border: 1px dashed #c8d3da; background: rgba(255,255,255,.6); text-align: center; color: var(--muted); }
+
+    @media (max-width: 991.98px) {
+      .publication-tools { position: static; }
+      .publications-content { padding-top: 3rem; }
+    }
+
+    @media (max-width: 575.98px) {
+      .publications-hero { padding: 8.5rem 0 4rem; }
+      .publication-stat { border-bottom: 1px solid #e2e8ec; }
+      .publication-card { padding: 1.25rem; }
+    }
+  </style>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; text-rendering: optimizeLegibility; }
+    a { text-decoration: none; }
+    .cv-nav { min-height: 76px; background: rgba(7,26,47,.95); border-bottom: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(14px); }
+    .navbar-brand { color: #fff; font-size: 1rem; font-weight: 650; letter-spacing: -.01em; }
+    .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--teal); color: var(--navy); font-size: .82rem; font-weight: 800; }
+    .cv-nav .nav-link { color: rgba(255,255,255,.72); font-size: .9rem; font-weight: 500; }
+    .cv-nav .nav-link:hover, .cv-nav .nav-link:focus, .cv-nav .nav-link.active { color: var(--teal); }
+    .navbar-toggler { border-color: rgba(255,255,255,.2); }
+    .btn { border-radius: 9px; font-weight: 650; padding: .72rem 1.2rem; transition: transform .2s ease, background .2s ease; }
+    .btn-lg { padding: .88rem 1.4rem; font-size: .96rem; }
+    .btn-sm { padding: .55rem .9rem; font-size: .84rem; }
+    .btn.btn-accent { --bs-btn-bg: var(--teal); --bs-btn-border-color: var(--teal); --bs-btn-color: var(--navy); background: var(--teal); border-color: var(--teal); color: var(--navy); }
+    .btn.btn-accent:hover, .btn.btn-accent:focus { background: #66e4d2; border-color: #66e4d2; color: var(--navy); transform: translateY(-1px); }
+    .eyebrow, .section-kicker { color: #109b8b; font-size: .76rem; font-weight: 750; letter-spacing: .17em; text-transform: uppercase; }
+    .publications-hero .eyebrow { color: var(--teal); }
+    .publications-hero .container h1 { max-width: 850px; font-size: 3rem; line-height: 1.1; letter-spacing: -.04em; }
+    .publications-hero h1 span { color: var(--teal); }
+    .publication-stat strong { font-size: 1.45rem; }
+    .publication-card[data-kind="master"] { border-left-color: #2563eb; }
+    .publication-card[data-kind="phd"] { border-left-color: #f59e0b; }
+    .publication-card[data-kind="project"] { border-left-color: var(--teal); }
+    .filter-button[data-filter="master"]:is(:hover,.active) { border-left-color: #2563eb; }
+    .filter-button[data-filter="phd"]:is(:hover,.active) { border-left-color: #f59e0b; }
+    .filter-button[data-filter="project"]:is(:hover,.active) { border-left-color: var(--teal); }
+    .filter-button:focus-visible { outline: 2px solid #087f72; outline-offset: 2px; }
+    .supervision-group { margin-top: 2.5rem; }
+    .supervision-group:first-child { margin-top: 0; }
+    .supervision-group[hidden] { display: none !important; }
+    .group-title { margin-bottom: 1rem; font-size: 1.3rem; letter-spacing: -.02em; }
+    .entry-title { margin: 0 0 .55rem; font-size: 1.35rem; line-height: 1.35; letter-spacing: -.02em; overflow-wrap: anywhere; }
+    .entry-description { margin: 0 0 1rem; color: #34495e; line-height: 1.75; overflow-wrap: anywhere; }
+    .entry-details { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem 1.5rem; margin: 0; }
+    .entry-details dt { margin-bottom: .18rem; color: var(--muted); font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .entry-details dd { margin: 0; color: #34495e; font-size: .88rem; line-height: 1.5; overflow-wrap: anywhere; }
+    footer { padding: 2rem 0; background: var(--navy); color: #9cafbf; }
+    footer p { margin: 0; font-size: .78rem; }
+    @media (max-width: 1199.98px) {
+      .cv-nav .navbar-collapse { padding: 1rem 0 .5rem; }
+      .cv-nav .btn { display: inline-block; margin-top: .4rem; }
+    }
+    @media (max-width: 575.98px) {
+      .publications-hero .container h1 { font-size: 2.25rem; }
+      .publication-stat { border-right: 0; }
+      .entry-details { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-xl navbar-dark fixed-top cv-nav" aria-label="Primary navigation">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html#top" aria-label="Stefano Frizzo Stefenon, home">
+        <span class="brand-mark">SS</span><span>Stefano Frizzo Stefenon</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cvNavigation" aria-controls="cvNavigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="cvNavigation">
+        <ul class="navbar-nav ms-auto align-items-xl-center gap-xl-2">
+          <li class="nav-item"><a class="nav-link" href="index.html#top">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#research">Research</a></li>
+          <li class="nav-item"><a class="nav-link active" href="supervision.html" aria-current="page">Supervision</a></li>
+          <li class="nav-item"><a class="btn btn-accent btn-sm ms-xl-2" href="publications.html">Publications <span aria-hidden="true">↗</span></a></li>
+          <li class="nav-item"><a class="btn btn-accent btn-sm ms-xl-2" href="https://github.com/SFStefenon" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="publications-hero" aria-labelledby="pageTitle">
+      <div class="container">
+        <p class="eyebrow mb-3">Research and mentoring</p>
+        <h1 class="fw-semibold mb-4" id="pageTitle">Student supervision and <span>research projects</span></h1>
+        <p class="publications-lead mb-4">Master’s and Ph.D. supervision, alongside research projects in artificial intelligence, energy forecasting, industrial monitoring, and intelligent engineering.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-accent btn-lg" href="#supervision-list" data-view="all">Explore supervision</a>
+          <a class="btn btn-outline-light btn-lg" href="#projects-list" data-view="project">Explore projects</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="publication-stats" aria-label="Supervision and project categories">
+      <div class="container">
+        <div class="row g-0 text-center">
+          <div class="col-sm-4 publication-stat"><strong>Master’s</strong><span>Dissertation supervision</span></div>
+          <div class="col-sm-4 publication-stat"><strong>Ph.D.</strong><span>Doctoral supervision</span></div>
+          <div class="col-sm-4 publication-stat"><strong>Projects</strong><span>Research and collaboration</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="publications-content" id="supervision-list" aria-labelledby="listTitle">
+      <div class="container">
+        <div class="row g-5">
+          <aside class="col-lg-3" aria-label="Supervision and project filters">
+            <div class="publication-tools">
+              <p class="section-kicker">Explore the work</p>
+              <h2 class="mb-3">Search and filter</h2>
+              <label class="visually-hidden" for="entrySearch">Search students and projects</label>
+              <input class="form-control publication-search mb-3" id="entrySearch" type="search" placeholder="Student, title, institution…">
+              <div class="d-grid gap-1 mb-4" role="group" aria-label="Filter by category">
+                <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All entries</button>
+                <button class="filter-button" type="button" data-filter="master" aria-pressed="false">Master’s supervision</button>
+                <button class="filter-button" type="button" data-filter="phd" aria-pressed="false">Ph.D. supervision</button>
+                <button class="filter-button" type="button" data-filter="project" aria-pressed="false">Research projects</button>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" id="resetFilters" type="button">Clear filters</button>
+            </div>
+          </aside>
+
+          <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-end gap-3 mb-3">
+              <div><p class="section-kicker mb-1">Research and mentoring</p><h2 class="h3 mb-0" id="listTitle">Supervision and projects</h2></div>
+              <p class="results-count mb-1" id="resultsCount" aria-live="polite"></p>
+            </div>
+
+            <!-- Replace the bracketed fields with your actual details.
+                 Duplicate an article to add a student or project in the relevant group.
+                 Keep data-kind as master, phd, or project so the filters keep working. -->
+            <div id="entriesGrid">
+              <section class="supervision-group" id="masters-list" data-group="master" aria-labelledby="mastersTitle">
+                <h3 class="group-title" id="mastersTitle">Master’s supervision</h3>
+                <article class="publication-card" data-kind="master">
+                  <div class="publication-meta"><span class="publication-id">Master’s thesis</span></div>
+                  <h4 class="entry-title">[Student name]</h4>
+                  <p class="entry-description"><strong>Thesis:</strong> [Thesis title]</p>
+                  <dl class="entry-details">
+                    <div><dt>Institution</dt><dd>[Institution]</dd></div>
+                    <div><dt>Period</dt><dd>[Start year – End year]</dd></div>
+                    <div><dt>Supervision role</dt><dd>[Supervisor / Co-supervisor]</dd></div>
+                    <div><dt>Status</dt><dd>[Ongoing / Completed]</dd></div>
+                  </dl>
+                </article>
+              </section>
+
+              <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
+                <h3 class="group-title" id="phdTitle">Ph.D. supervision</h3>
+                <article class="publication-card" data-kind="phd">
+                  <div class="publication-meta"><span class="publication-id">Ph.D. thesis</span></div>
+                  <h4 class="entry-title">[Student name]</h4>
+                  <p class="entry-description"><strong>Thesis:</strong> [Thesis title]</p>
+                  <dl class="entry-details">
+                    <div><dt>Institution</dt><dd>[Institution]</dd></div>
+                    <div><dt>Period</dt><dd>[Start year – End year]</dd></div>
+                    <div><dt>Supervision role</dt><dd>[Supervisor / Co-supervisor]</dd></div>
+                    <div><dt>Status</dt><dd>[Ongoing / Completed]</dd></div>
+                  </dl>
+                </article>
+              </section>
+
+              <section class="supervision-group" id="projects-list" data-group="project" aria-labelledby="projectsTitle">
+                <h3 class="group-title" id="projectsTitle">Research projects</h3>
+                <article class="publication-card" data-kind="project">
+                  <div class="publication-meta"><span class="publication-id">Research project</span></div>
+                  <h4 class="entry-title">[Project title]</h4>
+                  <p class="entry-description">[Brief description of the project, its objectives, and expected outcomes.]</p>
+                  <dl class="entry-details">
+                    <div><dt>Institutions and partners</dt><dd>[Institutions or partners]</dd></div>
+                    <div><dt>Period</dt><dd>[Start year – End year]</dd></div>
+                    <div><dt>Project role</dt><dd>[Coordinator / Researcher]</dd></div>
+                    <div><dt>Status</dt><dd>[Ongoing / Completed]</dd></div>
+                  </dl>
+                </article>
+              </section>
+            </div>
+
+            <div class="empty-state" id="emptyState" hidden>
+              <h3 class="h5">No matching entries</h3>
+              <p class="mb-0">Try another search term or clear the filters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container d-flex flex-column flex-sm-row justify-content-between gap-2">
+      <p>© 2026 Stefano Frizzo Stefenon</p><p>Researcher · Engineer · Educator</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <script>
+    (() => {
+      const cards = [...document.querySelectorAll('.publication-card')];
+      const groups = [...document.querySelectorAll('.supervision-group')];
+      const buttons = [...document.querySelectorAll('.filter-button')];
+      const search = document.getElementById('entrySearch');
+      const count = document.getElementById('resultsCount');
+      const empty = document.getElementById('emptyState');
+      let kind = 'all';
+
+      function applyFilters() {
+        const query = search.value.trim().toLocaleLowerCase();
+        let visible = 0;
+        cards.forEach(card => {
+          const matchesKind = kind === 'all' || card.dataset.kind === kind;
+          const matchesSearch = !query || card.textContent.toLocaleLowerCase().includes(query);
+          card.hidden = !(matchesKind && matchesSearch);
+          if (!card.hidden) visible += 1;
+        });
+        groups.forEach(group => {
+          group.hidden = ![...group.querySelectorAll('.publication-card')].some(card => !card.hidden);
+        });
+        count.textContent = `${visible} ${visible === 1 ? 'entry' : 'entries'} shown`;
+        empty.hidden = visible !== 0;
+      }
+
+      function setCategory(value) {
+        kind = value;
+        buttons.forEach(button => {
+          const active = button.dataset.filter === kind;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        applyFilters();
+      }
+
+      buttons.forEach(button => button.addEventListener('click', () => setCategory(button.dataset.filter)));
+      search.addEventListener('input', applyFilters);
+      document.getElementById('resetFilters').addEventListener('click', () => {
+        search.value = '';
+        setCategory('all');
+      });
+      document.querySelectorAll('[data-view]').forEach(link => link.addEventListener('click', () => {
+        search.value = '';
+        setCategory(link.dataset.view);
+      }));
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>
