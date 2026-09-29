@@ -125,5 +125,5 @@ footer p { margin:0; font-size:.78rem; }
   .contact-panel .btn { width:100%; }
 }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{transition:none!important} }
-.hero {min-height: auto; padding: 100px 0 40px;}
-.hero-profile-body {padding: 30px;}
+.hero {min-height: auto; padding: 120px 0 50px;}
+.hero-profile-body {padding: 40px;}
