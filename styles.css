@@ -126,4 +126,4 @@ footer p { margin:0; font-size:.78rem; }
 }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{transition:none!important} }
 .hero {min-height: auto; padding: 100px 0 40px;}
-.hero-profile-body {padding: 10px;}
+.hero-profile-body {padding: 30px;}
