@@ -202,9 +202,9 @@
     <section class="publication-stats" aria-label="Supervision and project categories">
       <div class="container">
         <div class="row g-0 text-center"> 
-          <div class="col-sm-4 publication-stat"><strong><a href="#phd-list" data-view="all">Ph.D.</strong><span>Doctorate supervision</span></a></div>
-          <div class="col-sm-4 publication-stat"><strong><a href="#masters-list" data-view="all">M.Sc.</strong><span>Master's supervision</span></a></div>
-          <div class="col-sm-4 publication-stat"><strong><a href="#projects-list" data-view="all">Projects</strong><span>Research and collaboration</span></a></div>
+          <div class="col-sm-4 publication-stat"><a href="#phd-list" data-view="phd"><strong>Ph.D.</strong><span>Doctorate supervision</span></a></div>
+          <div class="col-sm-4 publication-stat"><a href="#masters-list" data-view="master"><strong>M.Sc.</strong><span>Master's supervision</span></a></div>
+          <div class="col-sm-4 publication-stat"><a href="#projects-list" data-view="project"><strong>Projects</strong><span>Research and collaboration</span></a></div>
         </div>
       </div>
     </section>
@@ -217,24 +217,25 @@
               <p class="section-kicker">Explore the work</p>
               <h2 class="mb-3">Search and filter</h2>
               <label class="visually-hidden" for="entrySearch">Search students and projects</label>
-              <input class="form-control publication-search mb-3" "entrySearch" type="search" placeholder="Student, title, institution…">
+              <input class="form-control publication-search mb-3" id="entrySearch" type="search" placeholder="Student, title, institution…">
               <div class="d-grid gap-1 mb-4" role="group" aria-label="Filter by category">
                 <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All entries</button>
                 <button class="filter-button" type="button" data-filter="phd" aria-pressed="false">Ph.D. supervision</button>
                 <button class="filter-button" type="button" data-filter="master" aria-pressed="false">Master’s supervision</button>
                 <button class="filter-button" type="button" data-filter="project" aria-pressed="false">Research projects</button>
               </div>
-              <button class="btn btn-outline-secondary btn-sm" "resetFilters" type="button">Clear filters</button>
+              <button class="btn btn-outline-secondary btn-sm" id="resetFilters" type="button">Clear filters</button>
             </div>
           </aside>
 
           <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-end gap-3 mb-3">
-              <div><p class="section-kicker mb-1">Research and mentoring</p><h2 class="h3 mb-0" "listTitle">Supervision and projects</h2></div>
-              <p class="results-count mb-1" "resultsCount" aria-live="polite"></p>
+              <div><p class="section-kicker mb-1">Research and mentoring</p><h2 class="h3 mb-0" id="listTitle">Supervision and projects</h2></div>
+              <p class="results-count mb-1" id="resultsCount" aria-live="polite"></p>
             </div>
 
-            <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
+            <div id="entriesGrid">
+              <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
                 <h3 class="group-title" id="phdTitle">Ph.D. supervision</h3>
                 <article class="publication-card" data-kind="phd">
                   <div class="publication-meta"><span class="publication-id">Ph.D. thesis</span></div>
@@ -247,10 +248,6 @@
                     <div><dt>Status</dt><dd>Ongoing</dd></div>
                   </dl>
                 </article>
-              </section>
-            
-              <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
-                <h3 class="group-title" id="phdTitle">Ph.D. supervision</h3>
                 <article class="publication-card" data-kind="phd">
                   <div class="publication-meta"><span class="publication-id">Ph.D. thesis</span></div>
                   <h4 class="entry-title">William Gouvea Buratto</h4>
@@ -262,10 +259,6 @@
                     <div><dt>Status</dt><dd>Completed (2026)</dd></div>
                   </dl>
                 </article>
-              </section>
-
-              <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
-                <h3 class="group-title" id="phdTitle">Ph.D. supervision</h3>
                 <article class="publication-card" data-kind="phd">
                   <div class="publication-meta"><span class="publication-id">Ph.D. thesis</span></div>
                   <h4 class="entry-title">Aurélio Faustino Hoppe</h4>
@@ -277,10 +270,6 @@
                     <div><dt>Status</dt><dd>Completed (2026)</dd></div>
                   </dl>
                 </article>
-              </section>
-
-              <section class="supervision-group" id="phd-list" data-group="phd" aria-labelledby="phdTitle">
-                <h3 class="group-title" id="phdTitle">Ph.D. supervision</h3>
                 <article class="publication-card" data-kind="phd">
                   <div class="publication-meta"><span class="publication-id">Ph.D. thesis</span></div>
                   <h4 class="entry-title">Nathielle Waldrigues Branco</h4>
@@ -294,7 +283,8 @@
                 </article>
               </section>
 
-              <div id="entriesGrid">
+
+
               <section class="supervision-group" id="masters-list" data-group="master" aria-labelledby="mastersTitle">
                 <h3 class="group-title" id="mastersTitle">Master’s supervision</h3>
                 <article class="publication-card" data-kind="master">
