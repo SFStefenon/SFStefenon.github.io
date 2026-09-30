@@ -126,8 +126,8 @@ footer p { margin:0; font-size:.78rem; }
 }
 @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{transition:none!important}}
 
-.hero {min-height: auto; padding: 120px 0 50px;}
-.hero-profile-body {padding: 40px;}
+.hero {min-height: auto; padding: 110px 0 40px;}
+.hero-profile-body {padding: 30px;}
 
 .research-section {padding: 80px 0;}
 .research-card {min-height: 160px;}
