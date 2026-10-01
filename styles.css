@@ -151,3 +151,7 @@ footer p { margin:0; font-size:.78rem; }
 
 .project-status.location-status { color: #b9c8d5; }
 .project-status.location-status .dot { background: #fcbe1f; }
+
+.green-dot {width: 7px; height: 7px; border-radius: 50%; background: #28f7d8; animation: green-pulse 1.6s ease-in-out infinite}
+@keyframes green-pulse {  50% { box-shadow: 0 0 0 5px #2ae6caaf}}
+@media (prefers-reduced-motion: reduce) {.green-dot { animation: none}}
