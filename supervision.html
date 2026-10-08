@@ -226,10 +226,10 @@
               <label class="visually-hidden" for="entrySearch">Search students and projects</label>
               <input class="form-control publication-search mb-3" id="entrySearch" type="search" placeholder="Student, title, institution…">
               <div class="d-grid gap-1 mb-4" role="group" aria-label="Filter by category">
-                <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All entries</button>
-                <button class="filter-button" type="button" data-filter="phd" aria-pressed="false">Ph.D. supervision</button>
-                <button class="filter-button" type="button" data-filter="master" aria-pressed="false">Master’s supervision</button>
-                <button class="filter-button" type="button" data-filter="project" aria-pressed="false">Research projects</button>
+                <button class="filter-button active" type="button" data-filter="all" aria-pressed="true" onclick="location.href='#supervision-list'">All entries</button>
+                <button class="filter-button" type="button" data-filter="phd" aria-pressed="false" onclick="location.href='#supervision-list'">Ph.D. supervision</button>
+                <button class="filter-button" type="button" data-filter="master" aria-pressed="false" onclick="location.href='#supervision-list'">Master’s supervision</button>
+                <button class="filter-button" type="button" data-filter="project" aria-pressed="false" onclick="location.href='#supervision-list'">Research projects</button>
               </div>
               <button class="btn btn-outline-secondary btn-sm" id="resetFilters" type="button">Clear filters</button>
             </div>
