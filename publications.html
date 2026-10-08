@@ -196,10 +196,10 @@
               <label class="visually-hidden" for="publicationSearch">Search publications</label>
               <input class="form-control publication-search mb-3" id="publicationSearch" type="search" placeholder="Title, author, journal…">
               <div class="d-grid gap-1 mb-4" role="group" aria-label="Filter by publication type">
-                <button class="filter-button active" type="button" data-filter="all"><a href="#publication-list">All publications</a></button>
-                <button class="filter-button" type="button" data-filter="journal"><a href="#publication-list">Journal articles</a></button>
-                <button class="filter-button" type="button" data-filter="conference"><a href="#publication-list">Conference papers</a></button>
-                <button class="filter-button" type="button" data-filter="book"><a href="#publication-list">Books</a></button>
+                <button class="filter-button active" type="button" data-filter="all" onclick="location.href='#publication-list'">All publications</button>
+                <button class="filter-button" type="button" data-filter="journal" onclick="location.href='#publication-list'">Journal articles</button>
+                <button class="filter-button" type="button" data-filter="conference" onclick="location.href='#publication-list'">Conference papers</button>
+                <button class="filter-button" type="button" data-filter="book" onclick="location.href='#publication-list'">Books</button>  
               </div>
               <label class="form-label small text-uppercase text-secondary" for="yearFilter">Publication year</label>
               <select class="form-select year-select" id="yearFilter">
